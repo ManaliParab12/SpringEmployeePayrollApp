@@ -4,10 +4,10 @@ import lombok.Data;
 
 public @Data class ResponseDTO {
     private String message;
-    private Object date;
+    private Object data;
 
     public ResponseDTO(String message, Object date) {
         this.message = message;
-        this.date = date;
+        this.data = data;
     } 
 }
