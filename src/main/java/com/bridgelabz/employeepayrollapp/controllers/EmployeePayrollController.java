@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
 import com.bridgelabz.employeepayrollapp.dto.ResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.EmployeePayrollData;
@@ -30,7 +32,7 @@ public class EmployeePayrollController {
 	public ResponseEntity<ResponseDTO> getEmployeePayrollData() {
 		List<EmployeePayrollData> empDataList = null;
 		empDataList = employeePayrollService.getEmployeePayrollData();
-		ResponseDTO respDTO = new ResponseDTO("Get Call Successful", empDataList);
+		ResponseDTO respDTO = new ResponseDTO(" Get Call Successful", empDataList);
 		return new ResponseEntity<ResponseDTO>(respDTO, HttpStatus.OK);
 	}	
 	
@@ -44,7 +46,7 @@ public class EmployeePayrollController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<ResponseDTO> addEmployeePayrollData(
-					@RequestBody EmployeePayrollDTO empPayrollDTO) {
+					@Valid @RequestBody EmployeePayrollDTO empPayrollDTO) {
 		EmployeePayrollData empData = null;
 		empData = employeePayrollService.createEmployeePayrollData(empPayrollDTO);
 		ResponseDTO respDTO = new ResponseDTO("Created Employee Payroll Data Successfully", empData);
@@ -53,7 +55,7 @@ public class EmployeePayrollController {
 	
 	@PutMapping("/update/{empId}")
 	public ResponseEntity<ResponseDTO> updateEmployeePayrollData(
-					@PathVariable("empId") int empId,
+					@Valid @PathVariable("empId") int empId,
 					@RequestBody EmployeePayrollDTO empPayrollDTO) {
 		EmployeePayrollData empData = null;
 		empData = employeePayrollService.updateEmployeePayrollData(1, empPayrollDTO);
