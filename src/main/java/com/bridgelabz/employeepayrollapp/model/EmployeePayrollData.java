@@ -26,6 +26,6 @@ public @Data class EmployeePayrollData {
 		this.startDate = empPayrollDTO.startDate;
 		this.note = empPayrollDTO.note;
 		this.profilePic = empPayrollDTO.profilePic;
-		this.departments = empPayrollDTO.department;
+		this.departments = empPayrollDTO.departments;
 	}
 }

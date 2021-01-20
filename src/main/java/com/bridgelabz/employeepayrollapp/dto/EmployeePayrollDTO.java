@@ -29,5 +29,5 @@ public @ToString class EmployeePayrollDTO {
 
 	public String profilePic;
 
-	public List<String> department;	
+	public List<String> departments;	
 }
