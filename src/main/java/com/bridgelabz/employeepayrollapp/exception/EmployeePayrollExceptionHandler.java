@@ -13,7 +13,16 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
+@Slf4j
 public class EmployeePayrollExceptionHandler {
+    private static final String message = "Exception while processing REST Request";
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ResponseDTO> handleHttpMessageNotReadableException(
+                                        HttpMessageNotReadableException exception) {
+        log.error("Invalid Date Format", exception);
+        ResponseDTO responseDTO = new ResponseDTO(message, "Should have date in the Format dd MMM yyyy");
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(
@@ -23,14 +32,14 @@ public class EmployeePayrollExceptionHandler {
                                 .map(objErr -> objErr.getDefaultMessage())
                                 .collect(Collectors.toList());
         ResponseDTO responseDTO =
-                new ResponseDTO("Exception while processing REST Request", errMesg);
+                new ResponseDTO(message, errMesg);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST);
     }   
 
     @ExceptionHandler(EmployeePayrollException.class)
     public ResponseEntity<ResponseDTO> handleEmployeePayrollException(
                                         EmployeePayrollException exception ) {
-        ResponseDTO responseDTO = new ResponseDTO("Exception while processing REST Request", 
+        ResponseDTO responseDTO = new ResponseDTO(message, 
                                                  exception.getMessage());
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST); 
     }
