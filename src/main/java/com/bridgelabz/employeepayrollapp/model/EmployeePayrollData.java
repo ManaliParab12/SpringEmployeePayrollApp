@@ -3,6 +3,16 @@ package com.bridgelabz.employeepayrollapp.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
 import lombok.Data;
 
@@ -30,8 +40,12 @@ public @Data class EmployeePayrollData {
 	private List<String> departments;
 	
 	public EmployeePayrollData() {}
+	
+	public EmployeePayrollData(EmployeePayrollDTO empPayrollDTO) {
+		this.updateEmployeePayrollData(empPayrollDTO);
+	}
 
-	public EmployeePayrollData( EmployeePayrollDTO empPayrollDTO) {
+	public void updateEmployeePayrollData( EmployeePayrollDTO empPayrollDTO) {
 		this.name = empPayrollDTO.name;
 		this.salary = empPayrollDTO.salary;
 		this.gender = empPayrollDTO.gender;
